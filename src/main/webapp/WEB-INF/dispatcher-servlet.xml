@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dispatcher-servlet>
+    <!-- This file is intentionally unused.
+         The application is configured via Java config (WebAppInitializer + WebConfig).
+         You can delete this file safely.
+    -->
+</dispatcher-servlet>
+
