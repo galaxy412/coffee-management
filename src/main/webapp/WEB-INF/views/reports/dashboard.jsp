@@ -31,6 +31,25 @@
             font-size: 28px;
         }
 
+        /* ===== Navigation ===== */
+        .nav {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .nav a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+            color: #2980b9;
+        }
+
         /* ===== Card Container ===== */
         .card-container {
             display: flex;
@@ -153,6 +172,12 @@
     </style>
 </head>
 <body>
+
+    <div class="nav">
+        <a href="${pageContext.request.contextPath}/drinks">Quản lý món</a>
+        <a href="${pageContext.request.contextPath}/order">Gọi món</a>
+        <a href="${pageContext.request.contextPath}/reports">Báo cáo</a>
+    </div>
 
     <h1>📊 Báo cáo thống kê</h1>
 

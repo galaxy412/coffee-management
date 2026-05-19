@@ -44,9 +44,17 @@ public class DrinkController {
 
     // ===== 3. Lưu món MỚI (POST từ form thêm) =====
     @PostMapping("/save")
-    public String save(@ModelAttribute Drink drink) {
-        drinkService.save(drink);
-        return "redirect:/drinks";   // Redirect về danh sách sau khi lưu
+    public String save(@ModelAttribute Drink drink, Model model) {
+        try {
+            drinkService.save(drink);
+            return "redirect:/drinks";   // Redirect về danh sách sau khi lưu
+        } catch (IllegalArgumentException ex) {
+            model.addAttribute("drink", drink);
+            model.addAttribute("pageTitle", "Thêm món mới");
+            model.addAttribute("action", "save");
+            model.addAttribute("error", ex.getMessage());
+            return "drinks/form";
+        }
     }
 
     // ===== 4. Hiển thị form SỬA món =====
@@ -61,9 +69,17 @@ public class DrinkController {
 
     // ===== 5. Cập nhật món (POST từ form sửa) =====
     @PostMapping("/update")
-    public String update(@ModelAttribute Drink drink) {
-        drinkService.update(drink);
-        return "redirect:/drinks";
+    public String update(@ModelAttribute Drink drink, Model model) {
+        try {
+            drinkService.update(drink);
+            return "redirect:/drinks";
+        } catch (IllegalArgumentException ex) {
+            model.addAttribute("drink", drink);
+            model.addAttribute("pageTitle", "Sửa món: " + (drink.getName() != null ? drink.getName() : ""));
+            model.addAttribute("action", "update");
+            model.addAttribute("error", ex.getMessage());
+            return "drinks/form";
+        }
     }
 
     // ===== 6. Xóa món =====
