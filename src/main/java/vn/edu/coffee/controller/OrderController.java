@@ -68,4 +68,13 @@ public class OrderController {
 
         return "order/bill";  // → /WEB-INF/views/order/bill.jsp
     }
+    // ===== 3. Xử lý Thanh toán =====
+    @PostMapping("/pay")
+    public String payOrder(Model model) {
+        // Trong tương lai: Bạn có thể viết code lưu đơn hàng vào Database (bảng orders) ở đây
+
+        // Hiện tại: Chỉ hiển thị một thông báo đơn giản (có thể truyền qua View hoặc dùng Javascript alert)
+        // Sau khi "thanh toán" xong, chuyển hướng người dùng trở lại trang gọi món
+        return "redirect:/order?payment_success=true";
+    }
 }

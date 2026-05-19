@@ -11,11 +11,18 @@
         th { background-color: #f4f4f4; }
         .btn-submit { padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; font-size: 16px; }
         .btn-submit:hover { background-color: #0056b3; }
+        .alert-success { background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #c3e6cb; }
     </style>
 </head>
 <body>
     <h2>☕ ${pageTitle}</h2>
-    
+
+    <c:if test="${param.payment_success == 'true'}">
+        <div class="alert-success">
+            🎉 Thanh toán thành công! Mời bạn tiếp tục tạo đơn mới.
+        </div>
+    </c:if>
+
     <form action="${pageContext.request.contextPath}/order/checkout" method="POST">
         <table>
             <thead>
@@ -38,7 +45,11 @@
                                 <td>${drink.category}</td>
                                 <td>${drink.price}</td>
                                 <td>
-                                    <input type="number" name="qty_${drink.id}" value="0" min="0" style="width: 80px; padding: 5px;">
+                                    <input type="number" name="qty_${drink.id}" value="0" min="0"
+                                           style="width: 80px; padding: 5px;"
+                                           class="qty-input"
+                                           data-price="${drink.price}"
+                                           oninput="calculateTotal()">
                                 </td>
                             </tr>
                         </c:forEach>
@@ -46,9 +57,28 @@
                 </c:choose>
             </tbody>
         </table>
-        
-        <button type="submit" class="btn-submit">🧾 Tính Tiền</button>
+
+        <h3 style="color: #d9534f;">Tổng tiền tạm tính: <span id="liveTotal">0</span> VNĐ</h3>
+
+        <button type="submit" class="btn-submit">🧾 Tính Tiền / Lên Đơn</button>
         <a href="${pageContext.request.contextPath}/" style="margin-left: 15px;">Về trang chủ</a>
     </form>
+
+    <script>
+        function calculateTotal() {
+            let total = 0;
+            // Lấy tất cả các ô input có class là qty-input
+            let inputs = document.querySelectorAll('.qty-input');
+
+            inputs.forEach(input => {
+                let qty = parseInt(input.value) || 0;
+                let price = parseFloat(input.getAttribute('data-price')) || 0;
+                total += qty * price;
+            });
+
+            // Cập nhật giá trị lên thẻ span (định dạng số có dấu chấm/phẩy)
+            document.getElementById('liveTotal').innerText = total.toLocaleString('vi-VN');
+        }
+    </script>
 </body>
 </html>

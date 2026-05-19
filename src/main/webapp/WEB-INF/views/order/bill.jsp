@@ -10,9 +10,12 @@
         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
         th { background-color: #f4f4f4; }
         .total-row { font-weight: bold; font-size: 18px; color: #d9534f; background-color: #fdfaf9; }
-        .actions { margin-top: 20px; }
-        .btn { padding: 10px 15px; text-decoration: none; color: white; background-color: #28a745; border-radius: 4px; }
+        .actions { margin-top: 20px; display: flex; gap: 10px; align-items: center; }
+        .btn { padding: 10px 15px; text-decoration: none; color: white; background-color: #28a745; border-radius: 4px; border: none; cursor: pointer; font-size: 16px; font-family: Arial, sans-serif;}
         .btn-secondary { background-color: #6c757d; }
+        .btn-primary { background-color: #007bff; }
+        .btn-primary:hover { background-color: #0056b3; }
+        .btn:hover { opacity: 0.9; }
     </style>
 </head>
 <body>
@@ -54,6 +57,10 @@
         </table>
 
         <div class="actions">
+            <form action="${pageContext.request.contextPath}/order/pay" method="POST" style="margin: 0;">
+                <button type="submit" class="btn btn-primary">💳 Xác nhận Thanh toán</button>
+            </form>
+
             <button class="btn" onclick="window.print()">🖨 In Hóa Đơn</button>
             <a href="${pageContext.request.contextPath}/order" class="btn btn-secondary">Tạo Đơn Mới</a>
         </div>
